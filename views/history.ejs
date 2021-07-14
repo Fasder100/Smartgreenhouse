@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+
+</head>
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+  <body>
+    
+    
+    
+      
+    
+  
+    <div class="container">
+    <br />
+    <header class="w3-container w3-theme w3-padding-20 w3-animate-left">
+      <h1 class="w3-xxxlarge w3-padding-8">Smart Greenhouse</h1>
+      <div id="nav01" class="w3-bar-block">
+        <a class="w3-button w3-hover-teal w3-hide-large w3-large w3-right" href="javascript:void(0)" onclick="w3_close()">×</a>
+        <span>
+        <a class="w3-bar-item w3-button" href="/">Dashboard</a>
+        <a class="w3-bar-item w3-button" href="/history">History</a>
+        </span>
+      </div>
+      <h3 class=" w3-padding-16">History of Records</h3>
+    </header>
+    <div class="records">
+    <table class="w3-table w3-striped w3-white" id="history">
+      <thead>
+        <tr>
+          <th>Entry Number</th>
+          <th>SensorID</th>
+          <th>Sensor Type</th>
+          <th>Temperature</th>
+          <th>Soil</th>
+          <th>Light</th>
+          <th>PlantID</th>
+          <th>Crop Name</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+
+      <% recordList.forEach(record=>{ %>
+        <tr>
+            <td><%= record.entryNum %></td>
+            <td><%= record.sensorID %></td>
+            <td><%= record.temp %></td>
+            <td><%= record.humidity %></td>
+            <td><%= record.soil %></td>
+            <td><%= record.light %></td>
+            <td><%= record.plantID %></td>
+            <td><%= record.cropName %></td>
+            <td><%= record.timestamp %></td>
+        
+
+        </tr>
+
+     <% })%>
+      
+    
+  </table>
+  
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script>
+    $(document).ready( function () {
+    $('#history').DataTable();
+} );
+  
+  </script>
+  </body>
+  
+</html>

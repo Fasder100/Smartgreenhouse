@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<title>Smart Greenhouse</title>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-teal.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="static/add_plant.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js" integrity="sha512-2ho+gY0H62N4Z9oxD422L2ZYXiOMq9l+Aub1QNz4Z4UDOtDVxz4vk6O6R3Hqqc9Y7qSvZFl7cy3+eZ/ITnUrLA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<div class="w3-main" > 
+
+
+
+<header class="w3-container w3-theme w3-padding-64 w3-center">
+  <h1 class="w3-xxxlarge w3-padding-16">Smart Greenhouse</h1>
+</header>
+
+<div class="w3-container w3-padding-large w3-section w3-light-grey">
+  <h1 class="w3-jumbo">-------------------------</h1>
+  
+    <a class="w3-bar-item w3-button" href="/">Dashboard</a>
+    <a class="w3-bar-item w3-button" href="/history">History</a>
+    <a class="w3-bar-item w3-button" href="/add_plant">Add Plant</a>
+    
+  
+  <p class="w3-xlarge">Add Plant</p>
+
+
+  <form class="login-form" action="javascript:void(0);" id="plant-form" >
+    <h1>ADD Plant</h1>
+    <div class="form-input-material">
+      <input type="text" name="cropname" id="cropname" placeholder="Crop Name" autocomplete="off" class="form-control-material" required />
+      <label for="username">Username</label>
+    </div>
+    <div class="form-input-material">
+      <input type="text" name="sensorID" id="sensorID" placeholder="Sensor ID" autocomplete="off" class="form-control-material" required />
+      <label for="sensorID">Sensor ID</label>
+    </div>
+    <div class="form-input-material">
+    <input type="text" name="PlantID" id="plantID" placeholder="Plant ID" autocomplete="off" class="form-control-material" required />
+    <label for="plantID">Plant ID</label>
+      </div>
+      <label for="Limits"><b>Soil Moisture</b></label>
+    <div class="form-input-material">
+        <input type="text" name="upperlimit" id="sm_upperlimit" placeholder="Upper Limit" autocomplete="off" class="form-control-material" required />
+        <label for="sm_upperlimit">Upper Limit</label>
+    </div>
+    <div class="form-input-material">
+        <input type="text" name="lowerlimit" id="sm_lowerlimit" placeholder="Lower Limit" autocomplete="off" class="form-control-material" required />
+        <label for="sm_lowerlimit">Lower Limit</label>
+    </div>
+
+    <label for="Limits"><b>Temperature</b></label>
+    <div class="form-input-material">
+        <input type="text" name="upperlimit" id="t_upperlimit" placeholder="Upper Limit" autocomplete="off" class="form-control-material" required />
+        <label for="t_upperlimit">Upper Limit</label>
+    </div>
+    <div class="form-input-material">
+        <input type="text" name="lowerlimit" id="t_lowerlimit" placeholder="Lower Limit" autocomplete="off" class="form-control-material" required />
+        <label for="t_lowerlimit">Lower Limit</label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-ghost" id="new-plant-submit" >Submit</button>
+  </form>
+  
+ 
+</div>
+</div>
+<script>
+
+document.getElementById("new-plant-submit").addEventListener("click", function(event){
+    event.preventDefault();
+    let cropname = document.getElementById("cropname").value;
+    let sensorID = document.getElementById("sensorID").value;
+    let plantID = document.getElementById("plantID").value;
+    let sm_upperlimit = document.getElementById("sm_upperlimit").value;
+    let sm_lowerlimit = document.getElementById("sm_lowerlimit").value;
+    let t_upperlimit = document.getElementById("t_upperlimit").value;
+    let t_lowerlimit = document.getElementById("t_lowerlimit").value;
+
+    let postbody = {
+        cropname: cropname,
+        sensorID: sensorID,
+        plantID: plantID,
+        sm_ll: sm_lowerlimit,
+        sm_ul: sm_upperlimit,
+        t_ll: t_lowerlimit,
+        t_ul: t_upperlimit,
+    }
+
+    fetch("http://localhost:5000/add_plant", {
+        method: "POST",
+        body: JSON.stringify(postbody),
+        headers: {
+            "Content-type": "application/json",
+        },
+
+    })
+    .then((res) => res.json())
+    .then((json) => console.log(json));
+    
+
+  
+  });
+  
+ 
+</script>
+</body>
+</html>
